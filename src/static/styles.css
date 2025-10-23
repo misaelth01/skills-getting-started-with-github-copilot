@@ -108,6 +108,14 @@ button:hover {
   background-color: #3949ab;
 }
 
+button.joined {
+    background-color: #f44336;
+}
+
+button.joined:hover {
+    background-color: #d32f2f;
+}
+
 .message {
   margin-top: 20px;
   padding: 10px;

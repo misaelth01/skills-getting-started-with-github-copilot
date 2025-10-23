@@ -4,6 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  // Datos de ejemplo
+  const activities = {
+    1: {
+      id: 1,
+      title: "Clase de Yoga al Aire Libre",
+      participants: [
+        { id: 1, name: "Ana", avatar: "https://i.pravatar.cc/40?img=3" },
+        { id: 2, name: "Luis", avatar: "https://i.pravatar.cc/40?img=12" },
+        { id: 3, name: "María J.", initial: "MJ" },
+        { id: 4, name: "Omar", avatar: "https://i.pravatar.cc/40?img=5" },
+        { id: 5, name: "Carlos R.", initial: "CR" },
+      ],
+    },
+    // Más actividades aquí...
+  };
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -39,6 +55,50 @@ document.addEventListener("DOMContentLoaded", () => {
       activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
       console.error("Error fetching activities:", error);
     }
+  }
+
+  // Renderizar lista de participantes
+  function renderParticipants(activityId) {
+    const activity = activities[activityId];
+    if (!activity) return;
+
+    const listEl = document.getElementById(`participants-list-${activityId}`);
+    const countEl = listEl.closest(".participants-section").querySelector(".participant-count");
+
+    // Actualizar contador
+    countEl.textContent = activity.participants.length;
+
+    // Renderizar participantes
+    listEl.innerHTML = activity.participants.map((p) => `
+        <li>
+            ${p.avatar 
+                ? `<img class="avatar" src="${p.avatar}" alt="${p.name}" />` 
+                : `<span class="participant-initial">${p.initial}</span>`
+            }
+            ${p.name}
+        </li>
+    `).join("");
+  }
+
+  // Unirse a actividad
+  function joinActivity(activityId, participant) {
+    const activity = activities[activityId];
+    if (!activity) return;
+
+    // Evitar duplicados
+    if (!activity.participants.find((p) => p.id === participant.id)) {
+      activity.participants.push(participant);
+      renderParticipants(activityId);
+    }
+  }
+
+  // Abandonar actividad
+  function leaveActivity(activityId, participantId) {
+    const activity = activities[activityId];
+    if (!activity) return;
+
+    activity.participants = activity.participants.filter((p) => p.id !== participantId);
+    renderParticipants(activityId);
   }
 
   // Handle form submission
@@ -81,6 +141,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Initialize app
+  // Inicializar
   fetchActivities();
+
+  // Renderizar participantes iniciales
+  Object.keys(activities).forEach((id) => renderParticipants(id));
+
+  // Manejar clicks en botón unirse
+  document.addEventListener("click", (e) => {
+    const joinBtn = e.target.closest("button:not(.participants-toggle)");
+    if (!joinBtn) return;
+
+    const section = joinBtn.closest(".activity-card");
+    const activityId = section.dataset.activityId;
+
+    // Simular usuario actual
+    const currentUser = {
+      id: Date.now(),
+      name: "Usuario Nuevo",
+      initial: "UN",
+    };
+
+    if (joinBtn.classList.contains("joined")) {
+      leaveActivity(activityId, currentUser.id);
+      joinBtn.textContent = "Unirse";
+      joinBtn.classList.remove("joined");
+    } else {
+      joinActivity(activityId, currentUser);
+      joinBtn.textContent = "Abandonar";
+      joinBtn.classList.add("joined");
+    }
+  });
 });
