@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Actividades - Ejemplo</title>
+  <link rel="stylesheet" href="./static/styles.css" />
+  <script src="./static/app.js" defer></script>
+</head>
+<body>
+  <!-- ...existing layout/header... -->
+
+  <main>
+    <section class="activity-card" data-activity-id="1">
+      <h4>Clase de Yoga al Aire Libre</h4>
+      <p>Un relajante flujo para todos los niveles. Trae tu esterilla.</p>
+
+      <!-- Participants section -->
+      <div class="participants-section">
+        <div class="participants-header">
+          <div class="participants-title">Participantes</div>
+          <div class="participant-count">5</div>
+        </div>
+
+        <div class="participants-collapsible">
+          <ul class="participants-list participants-collapsed" id="participants-list-1">
+            <li><img class="avatar" src="https://i.pravatar.cc/40?img=3" alt="Ana" /> Ana</li>
+            <li><img class="avatar" src="https://i.pravatar.cc/40?img=12" alt="Luis" /> Luis</li>
+            <li><span class="participant-initial">MJ</span> María J.</li>
+            <li><img class="avatar" src="https://i.pravatar.cc/40?img=5" alt="Omar" /> Omar</li>
+            <li><span class="participant-initial">CR</span> Carlos R.</li>
+          </ul>
+          <div class="participants-fade" id="fade-1" style="display:block"></div>
+        </div>
+
+        <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+          <button class="participants-toggle" aria-expanded="false" data-target="1" id="toggle-1">Mostrar más</button>
+          <button>Unirse</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ...other sections... -->
+  </main>
+
+  <script>
+    // Pequeño script para toggle (puedes integrarlo en tu JS existente)
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('.participants-toggle');
+      if (!btn) return;
+      const id = btn.getAttribute('data-target');
+      const list = document.getElementById('participants-list-' + id);
+      const fade = document.getElementById('fade-' + id);
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        list.classList.add('participants-collapsed');
+        if (fade) fade.style.display = 'block';
+        btn.textContent = 'Mostrar más';
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        list.classList.remove('participants-collapsed');
+        if (fade) fade.style.display = 'none';
+        btn.textContent = 'Mostrar menos';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  </script>
+
+  <!-- ...existing footer... -->
+</body>
+</html>

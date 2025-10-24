@@ -108,6 +108,14 @@ button:hover {
   background-color: #3949ab;
 }
 
+button.joined {
+    background-color: #f44336;
+}
+
+button.joined:hover {
+    background-color: #d32f2f;
+}
+
 .message {
   margin-top: 20px;
   padding: 10px;
@@ -141,4 +149,139 @@ footer {
   margin-top: 30px;
   padding: 20px;
   color: #666;
+}
+
+.participants-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #eee;
+}
+
+.participants-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.participants-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a237e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.participant-count {
+  background: #e8f0ff;
+  color: #1a237e;
+  border: 1px solid #cfdcff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.participants-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.participants-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fbfbff;
+  border: 1px solid #eef2ff;
+  padding: 6px 8px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #333;
+  list-style-position: inside;
+}
+
+/* small circular avatar */
+.participants-list img.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e0e6ff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+}
+
+/* fallback initial when no avatar image */
+.participant-initial {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#dfe7ff,#c2d2ff);
+  color: #1a237e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid #e0e6ff;
+}
+
+/* collapsed helper */
+.participants-collapsed {
+  max-height: 72px; /* ~2 rows */
+  overflow: hidden;
+  position: relative;
+}
+
+.participants-fade {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0), #fff 90%);
+}
+
+/* toggle link */
+.participants-toggle {
+  background: none;
+  border: none;
+  color: #0066cc;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* adapt for narrow cards */
+.delete-participant {
+  background: none;
+  border: none;
+  color: #f44336;
+  padding: 4px;
+  margin-left: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.delete-participant:hover {
+  opacity: 1;
+  background: none;
+}
+
+@media (max-width: 480px) {
+  .participants-list li { font-size: 12px; padding: 6px; }
+  .participants-list img.avatar,
+  .participant-initial { width: 24px; height: 24px; }
+  .delete-participant { font-size: 14px; }
 }
