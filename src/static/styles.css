@@ -185,7 +185,7 @@ footer {
 }
 
 .participants-list {
-  list-style: disc inside;
+  list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
@@ -259,8 +259,29 @@ footer {
 }
 
 /* adapt for narrow cards */
+.delete-participant {
+  background: none;
+  border: none;
+  color: #f44336;
+  padding: 4px;
+  margin-left: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.delete-participant:hover {
+  opacity: 1;
+  background: none;
+}
+
 @media (max-width: 480px) {
   .participants-list li { font-size: 12px; padding: 6px; }
   .participants-list img.avatar,
   .participant-initial { width: 24px; height: 24px; }
+  .delete-participant { font-size: 14px; }
 }
